@@ -1,3 +1,5 @@
+set encoding=utf-8
+scriptencoding utf-8
 execute pathogen#infect()
 
 " .vimrc
@@ -5,7 +7,6 @@ execute pathogen#infect()
 
 " For multi-byte character support (CJK support, for example):
 "set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
-
 colorscheme molokai
       
 set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
@@ -80,6 +81,12 @@ set mouse=a         " Enable the use of the mouse.
 set cursorline
 set laststatus=2
 
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+set relativenumber
+set noshowmode
+
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
@@ -109,9 +116,22 @@ exec "!time go run %"
 elseif &filetype == 'mkd'
 exec "!~/.vim/markdown.pl % > %.html &"
 exec "!firefox %.html &"
+elseif &filetype == 'lisp'
+exec "!clear;time sbcl --script %"
 endif
 endfunc
 
 filetype plugin indent on
 syntax on                                                                                                                  
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"x":""}',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '|', 'right': '|' }
+      \ }
+
+
 
